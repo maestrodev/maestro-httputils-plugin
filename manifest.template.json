@@ -1,0 +1,64 @@
+{
+  "tasks": [{
+    "name": "HTTP ping",
+    "description": "Ping A Webserver At A Specified Context Path",
+    "license": "Apache 2.0",
+    "author":  "MaestroDev",
+    "version": "updated at build time",
+    "class":   "MaestroDev::HttpPingWorker",
+    "type":    "ruby",
+    "dependencies":[
+    ],
+    "task":{
+      "command": "/ping/ping_http",
+      "inputs": {
+        "host": {
+          "description": "Hostname Of The Webserver",
+          "required": false,
+          "type": "String",
+          "value": ""
+        },
+        "port": {
+          "description": "Port Webserver Is Bound To",
+          "required": true,
+          "type": "Integer",
+          "value": 80
+        },
+        "web_path": {
+          "description": "Context Path On The Webserver",
+          "required": true,
+          "type": "String",
+          "value": "/"
+        },
+        "ping_user": {
+          "description": "Username For Application Server",
+          "required": false,
+          "type": "String",
+          "value": ""
+        },
+        "ping_password": {
+          "description": "Password For Application User",
+          "required": false,
+          "type": "Password",
+          "value": ""
+        },
+        "timeout": {
+          "description": "Time To Wait For Connection Response",
+          "required": false,
+          "type": "Integer",
+          "value": 60
+        },
+        "open_timeout": {
+          "description": "Time To Wait For Connection Openning",
+          "required": false,
+          "type": "Integer",
+          "value": 60
+        }
+      },
+      "outputs": {"output" : {"type" : "String"}},
+      "type": "remote",
+      "tool_name": "Deploy",
+      "icon": "globe.png"
+    }
+  }]
+}
