@@ -4,7 +4,7 @@ require 'rest-client'
 require 'maestro_common/utils/retryable'
 
 module MaestroDev
-  module HttpUtils
+  module HttpUtilsPlugin
     class PluginError < StandardError
     end
 
