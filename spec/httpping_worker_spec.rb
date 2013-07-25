@@ -17,7 +17,7 @@
 
 require 'spec_helper'
 
-describe MaestroDev::HttpPingWorker do
+describe MaestroDev::HttpUtils::HttpPingWorker do
 
   before(:all) do
     Maestro::MaestroWorker.mock!
