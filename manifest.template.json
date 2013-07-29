@@ -5,7 +5,7 @@
     "license": "Apache 2.0",
     "author":  "MaestroDev",
     "version": "updated at build time",
-    "class":   "MaestroDev::HttpUtilsPlugin::HttpPingWorker",
+    "class":   "MaestroDev::Plugin::HttpPingWorker",
     "type":    "ruby",
     "dependencies":[
     ],

@@ -4,57 +4,39 @@ require 'rest-client'
 require 'maestro_common/utils/retryable'
 
 module MaestroDev
-  module HttpUtilsPlugin
-    class PluginError < StandardError
-    end
-
-    class ConfigError < PluginError
-    end
+  module Plugin
 
     class HttpPingWorker < Maestro::MaestroWorker
 
       def ping_http
-        write_output("\nStarting HTTP PING task...\n", :buffer => true)
+        validate_parameters
+
+        response = nil
+        attempt = 0
+
+        RestClient.proxy = ENV['http_proxy'] if ENV.has_key?('http_proxy')
 
         begin
-          validate_parameters
+          Maestro::Utils.retryable(:tries => @tries - 1,
+                                   :on => Exception,
+                                   :sleep => (@timeout/5)) do
 
-          response = nil
-          attempt = 0
+              attempt = attempt + 1
 
-          begin
-            Maestro::Utils.retryable(:tries => @tries - 1,
-                                     :on => Exception,
-                                     :sleep => (@timeout/5)) do
+              write_output("\nPinging #{@host}.  Attempt ##{attempt} of #{@tries}", :buffer => false)
+              getter = RestClient::Resource.new(
+                  "http://#{@host}:#{@port}/#{@web_path}",
+                  :user => @ping_user,
+                  :password => @ping_password,
+                  :timeout => @timeout,
+                  :open_timeout => @open_timeout)
 
-                attempt = attempt + 1
+              response = getter.get :content_type => 'application/text'
 
-                write_output("\nPinging #{@host}.  Attempt ##{attempt} of #{@tries}", :buffer => false)
-                getter = RestClient::Resource.new(
-                    "http://#{@host}:#{@port}/#{@web_path}",
-                    :user => @ping_user,
-                    :password => @ping_password,
-                    :timeout => @timeout,
-                    :open_timeout => @open_timeout)
-
-                response = getter.get :content_type => 'application/text'
-
-            end
-          rescue Exception => e
-            raise PluginError, "Failed to ping host/service: #{e}."
           end
-
-          write_output("\nSuccessfully pinged host.", :buffer => true) if !response.nil? && response.code == 200
-        rescue PluginError => e
-          write_output("\n#{e.message}", :buffer => true)
-          @error = e.message
         rescue Exception => e
-          @error = "Error executing HTTP Ping Task: #{e.class} #{e}"
-          Maestro.log.warn("Error executing HTTP Ping Task: #{e.class} #{e}: " + e.backtrace.join("\n"))
+          raise PluginError, "Failed to ping host/service: #{e}."
         end
-
-        write_output "\n\nHTTP PING task complete\n"
-        set_error(@error) if @error
       end
 
       private
