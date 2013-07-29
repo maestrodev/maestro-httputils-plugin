@@ -32,7 +32,7 @@ module MaestroDev
                   :open_timeout => @open_timeout)
 
               response = getter.get :content_type => 'application/text'
-
+              write_output("\nSuccessfully pinged host.", :buffer => true)
           end
         rescue Exception => e
           raise PluginError, "Failed to ping host/service: #{e}."
