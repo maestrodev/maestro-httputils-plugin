@@ -23,16 +23,23 @@ module MaestroDev
 
               attempt = attempt + 1
 
-              write_output("\nPinging #{@host}.  Attempt ##{attempt} of #{@tries}", :buffer => false)
-              getter = RestClient::Resource.new(
+              write_output("\nAttempt ##{attempt} of #{@tries}.  Pinging #{@host}...", :buffer => false)
+
+              begin
+                getter = RestClient::Resource.new(
                   "http://#{@host}:#{@port}/#{@web_path}",
                   :user => @ping_user,
                   :password => @ping_password,
                   :timeout => @timeout,
                   :open_timeout => @open_timeout)
 
-              response = getter.get :content_type => 'application/text'
-              write_output("\nSuccessfully pinged host.", :buffer => true)
+                response = getter.get :content_type => 'application/text'
+              rescue Exception => e
+                write_output(" FAIL. #{e}")
+                raise e
+              end
+
+              write_output(" SUCCESS.\nSuccessfully pinged host.", :buffer => true)
           end
         rescue Exception => e
           raise PluginError, "Failed to ping host/service: #{e}."
