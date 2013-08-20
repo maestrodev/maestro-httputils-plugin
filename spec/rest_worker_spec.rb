@@ -26,7 +26,7 @@ describe MaestroDev::Plugin::RestWorker do
   describe "rest_get" do
     FAILURE = 404
     REJECTED = "Connection refused"
-    ADDRESS = "Can't assign requested address"
+    ADDRESS = "(?:Can't|Cannot) assign requested address"
     RESOURCE = "Resource Not Found: "
     ROUTE = "No route to host"
 
@@ -64,7 +64,7 @@ describe MaestroDev::Plugin::RestWorker do
 
       subject.perform(:rest_get, @workitem)
 
-      @workitem['fields']['__error__'].should include(ADDRESS)
+      @workitem['fields']['__error__'].should match(ADDRESS)
     end
 
     it 'should report if no route to host found' do
