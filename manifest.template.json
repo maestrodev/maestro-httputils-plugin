@@ -60,5 +60,207 @@
       "tool_name": "Deploy",
       "icon": "globe.png"
     }
+  },{
+    "name": "REST GET",
+    "description": "GET a specified resource from a server",
+    "license": "Apache 2.0",
+    "author":  "MaestroDev",
+    "version": "updated at build time",
+    "class":   "MaestroDev::Plugin::RestWorker",
+    "type":    "ruby",
+    "dependencies":[
+    ],
+    "task":{
+      "command": "/rest/rest_get",
+      "inputs": {
+        "url": {
+          "description": "URL of Resource",
+          "required": true,
+          "type": "String",
+          "value": "/"
+        },
+        "user": {
+          "description": "Username For Application Server",
+          "required": false,
+          "type": "String",
+          "value": ""
+        },
+        "password": {
+          "description": "Password For Application User",
+          "required": false,
+          "type": "Password",
+          "value": ""
+        },
+        "timeout": {
+          "description": "Time To Wait For Connection Response",
+          "required": false,
+          "type": "Integer",
+          "value": 60
+        },
+        "content_type": {
+          "description": "HTTP content type to place in Accept header",
+          "required": false,
+          "type": "String",
+          "value": "application/json"
+        }
+      },
+      "outputs": {"output" : {"type" : "String"}},
+      "type": "remote",
+      "tool_name": "Deploy",
+      "icon": "globe.png"
+    }
+  },{
+    "name": "REST DELETE",
+    "description": "DELETE a specified resource from a server",
+    "license": "Apache 2.0",
+    "author":  "MaestroDev",
+    "version": "updated at build time",
+    "class":   "MaestroDev::Plugin::RestWorker",
+    "type":    "ruby",
+    "dependencies":[
+    ],
+    "task":{
+      "command": "/rest/rest_delete",
+      "inputs": {
+        "url": {
+          "description": "URL of Resource",
+          "required": true,
+          "type": "String",
+          "value": "/"
+        },
+        "user": {
+          "description": "Username For Application Server",
+          "required": false,
+          "type": "String",
+          "value": ""
+        },
+        "password": {
+          "description": "Password For Application User",
+          "required": false,
+          "type": "Password",
+          "value": ""
+        },
+        "timeout": {
+          "description": "Time To Wait For Connection Response",
+          "required": false,
+          "type": "Integer",
+          "value": 60
+        }
+      },
+      "outputs": {"output" : {"type" : "String"}},
+      "type": "remote",
+      "tool_name": "Deploy",
+      "icon": "globe.png"
+    }
+  },{
+    "name": "REST PUT",
+    "description": "PUT a specified resource to a server",
+    "license": "Apache 2.0",
+    "author":  "MaestroDev",
+    "version": "updated at build time",
+    "class":   "MaestroDev::Plugin::RestWorker",
+    "type":    "ruby",
+    "dependencies":[
+    ],
+    "task":{
+      "command": "/rest/rest_put",
+      "inputs": {
+        "url": {
+          "description": "URL of Resource",
+          "required": true,
+          "type": "String",
+          "value": "/"
+        },
+        "user": {
+          "description": "Username For Application Server",
+          "required": false,
+          "type": "String",
+          "value": ""
+        },
+        "password": {
+          "description": "Password For Application User",
+          "required": false,
+          "type": "Password",
+          "value": ""
+        },
+        "timeout": {
+          "description": "Time To Wait For Connection Response",
+          "required": false,
+          "type": "Integer",
+          "value": 60
+        },
+        "content_type": {
+          "description": "HTTP content type to set for content",
+          "required": false,
+          "type": "String",
+          "value": "application/json"
+        },
+        "content": {
+          "description": "Content to include in request, content-type used to set type",
+          "required": false,
+          "type": "String",
+          "value": ""
+        }
+      },
+      "outputs": {"output" : {"type" : "String"}},
+      "type": "remote",
+      "tool_name": "Deploy",
+      "icon": "globe.png"
+    }
+  },{
+    "name": "REST POST",
+    "description": "POST a specified resource to a server",
+    "license": "Apache 2.0",
+    "author":  "MaestroDev",
+    "version": "updated at build time",
+    "class":   "MaestroDev::Plugin::RestWorker",
+    "type":    "ruby",
+    "dependencies":[
+    ],
+    "task":{
+      "command": "/rest/rest_post",
+      "inputs": {
+        "url": {
+          "description": "URL of Resource",
+          "required": true,
+          "type": "String",
+          "value": "/"
+        },
+        "user": {
+          "description": "Username For Application Server",
+          "required": false,
+          "type": "String",
+          "value": ""
+        },
+        "password": {
+          "description": "Password For Application User",
+          "required": false,
+          "type": "Password",
+          "value": ""
+        },
+        "timeout": {
+          "description": "Time To Wait For Connection Response",
+          "required": false,
+          "type": "Integer",
+          "value": 60
+        },
+        "content_type": {
+          "description": "HTTP content type to set for content",
+          "required": false,
+          "type": "String",
+          "value": "application/json"
+        },
+        "content": {
+          "description": "Content to include in request, content-type used to set type",
+          "required": false,
+          "type": "String",
+          "value": ""
+        }
+      },
+      "outputs": {"output" : {"type" : "String"}},
+      "type": "remote",
+      "tool_name": "Deploy",
+      "icon": "globe.png"
+    }
   }]
 }
