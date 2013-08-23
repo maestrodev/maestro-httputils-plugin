@@ -1,5 +1,6 @@
 maestro-httputils-plugin
 ========================
+[![Code Climate](https://codeclimate.com/github/maestrodev/maestro-httputils-plugin.png)](https://codeclimate.com/github/maestrodev/maestro-httputils-plugin)
 
 A Maestro Plugin that adds various HTTP methods
 
