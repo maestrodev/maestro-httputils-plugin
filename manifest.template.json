@@ -1,4 +1,5 @@
 {
+  "image": "globe.png",
   "tasks": [{
     "name": "HTTP ping",
     "description": "Ping A Webserver At A Specified Context Path",
@@ -53,6 +54,12 @@
           "required": false,
           "type": "Integer",
           "value": 60
+        },
+        "tries": {
+          "description": "Number of attempts to make",
+          "required": false,
+          "type": "Integer",
+          "value": 5
         }
       },
       "outputs": {"output" : {"type" : "String"}},

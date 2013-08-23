@@ -19,7 +19,7 @@ module MaestroDev
         begin
           Maestro::Utils.retryable(:tries => @tries - 1,
                                    :on => Exception,
-                                   :sleep => (@timeout/5)) do
+                                   :sleep => (@timeout/@tries)) do
 
               attempt = attempt + 1
 
@@ -65,7 +65,7 @@ module MaestroDev
         errors << 'web_path not specified' if @web_path.empty?
         errors << 'timeout not specified' if @timeout < 1
         errors << 'open_timeout not specified' if @open_timeout < 1
-        errors << 'tries not specified' if @open_timeout < 1
+        errors << 'tries not specified' if @tries < 1
 
         if !errors.empty?
           raise ConfigError, "Configuration errors: #{errors.join(', ')}"
