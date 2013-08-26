@@ -52,11 +52,11 @@ module MaestroDev
         errors = []
 
         @host = get_field('host', '')
-        @port = intify(get_field('port'), 80)
+        @port = get_int_field('port', 80)
         @web_path = get_field('web_path', '')
-        @open_timeout = intify(get_field('open_timeout'), 90)
-        @timeout = intify(get_field('timeout'), 90)
-        @tries = intify(get_field('tries'), 5)
+        @open_timeout = get_int_field('open_timeout', 90)
+        @timeout = get_int_field('timeout', 90)
+        @tries = get_int_field('tries', 5)
         @ping_user = get_field('ping_user', '')
         @ping_password = get_field('ping_password', '')
 
@@ -70,20 +70,6 @@ module MaestroDev
         if !errors.empty?
           raise ConfigError, "Configuration errors: #{errors.join(', ')}"
         end
-      end
-
-      def intify(value, default = 0)
-        res = default
-
-        if value
-          if value.is_a?(Fixnum)
-            res = value
-          elsif value.respond_to?(:to_i)
-            res = value.to_i
-          end
-        end
-
-        res
       end
     end
   end

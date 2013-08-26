@@ -45,7 +45,7 @@ module MaestroDev
         errors = []
 
         @url = get_field('url', '')
-        @timeout = intify(get_field('timeout'), 90)
+        @timeout = get_int_field('timeout', 90)
         @user = get_field('user', '')
         @password = get_field('password', '')
         @content_type = get_field('content_type', 'application/json')
@@ -78,20 +78,6 @@ module MaestroDev
         if !errors.empty?
           raise ConfigError, "Configuration errors: #{errors.join(', ')}"
         end
-      end
-
-      def intify(value, default = 0)
-        res = default
-
-        if value
-          if value.is_a?(Fixnum)
-            res = value
-          elsif value.respond_to?(:to_i)
-            res = value.to_i
-          end
-        end
-
-        res
       end
 
       def do_rest(operation)
