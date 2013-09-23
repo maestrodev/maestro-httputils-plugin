@@ -15,12 +15,14 @@ module MaestroDev
         attempt = 0
 
         RestClient.proxy = ENV['http_proxy'] if ENV.has_key?('http_proxy')
+        sleeping = @timeout/@tries
 
         begin
           Maestro::Utils.retryable(:tries => @tries - 1,
                                    :on => Exception,
-                                   :sleep => (@timeout/@tries)) do
+                                   :sleep => sleeping) do
 
+              start = Time.now
               attempt = attempt + 1
 
               write_output("\nAttempt ##{attempt} of #{@tries}.  Pinging #{@host}...", :buffer => false)
@@ -35,11 +37,12 @@ module MaestroDev
 
                 response = getter.get :content_type => 'application/text'
               rescue Exception => e
-                write_output(" FAIL. #{e}")
+                write_output(" FAIL (#{(Time.now-start).to_i}s). #{e}")
+                write_output("\nSleeping for #{sleeping} seconds") if sleeping > 1
                 raise e
               end
 
-              write_output(" SUCCESS.\nSuccessfully pinged host.", :buffer => true)
+              write_output(" SUCCESS (#{(Time.now-start).to_i}s).\nSuccessfully pinged host.", :buffer => true)
           end
         rescue Exception => e
           raise PluginError, "Failed to ping host/service: #{e}."
