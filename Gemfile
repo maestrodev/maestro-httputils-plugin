@@ -15,7 +15,6 @@ end
 
 group :test do
   gem 'rspec'
-  gem 'rcov', '0.9.11'
   gem 'mocha', '>=0.10.0'
   gem 'webmock'
 end
