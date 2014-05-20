@@ -84,16 +84,24 @@ module MaestroDev
         write_output("\nHTTP #{operation} #{@url}", :buffer => false)
         write_output(" with auth #{@user}:*****") if @user
 
-        RestClient.proxy = ENV['http_proxy'] if ENV.has_key?('http_proxy')
+        begin
+          RestClient.proxy = ENV['http_proxy'] if ENV.has_key?('http_proxy')
 
-        rest = RestClient::Resource.new(
-          @url,
-          :timeout => @timeout,
-          :user => @user,
-          :password => @password
-        )
-        response = yield(rest)
-        write_output(" => #{response.code}\n#{response.body}")
+          rest = RestClient::Resource.new(
+            @url,
+            :timeout => @timeout,
+            :user => @user,
+            :password => @password
+          )
+          response = yield(rest)
+          write_output(" => #{response.code}\n#{response.body}")
+        rescue Exception => e
+          write_output("\nFAIL. #{e.class} #{e}")
+          content = @content.nil? ? "" : " with content #{@content}"
+          msg = "Error executing REST call to #{@url}#{content}\n#{e}\n#{e.backtrace.join("\n")}"
+          Maestro.log.error(msg)
+          raise PluginError, msg
+        end
       end
     end
   end
