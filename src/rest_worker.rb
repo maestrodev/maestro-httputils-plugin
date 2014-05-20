@@ -84,21 +84,16 @@ module MaestroDev
         write_output("\nHTTP #{operation} #{@url}", :buffer => false)
         write_output(" with auth #{@user}:*****") if @user
 
-        begin
-          RestClient.proxy = ENV['http_proxy'] if ENV.has_key?('http_proxy')
+        RestClient.proxy = ENV['http_proxy'] if ENV.has_key?('http_proxy')
 
-          rest = RestClient::Resource.new(
-            @url,
-            :timeout => @timeout,
-            :user => @user,
-            :password => @password
-          )
-          response = yield(rest)
-          write_output(" => #{response.code}\n#{response.body}")
-        rescue Exception => e
-          write_output("\nFAIL. #{e.class} #{e}")
-          raise PluginError, e
-        end
+        rest = RestClient::Resource.new(
+          @url,
+          :timeout => @timeout,
+          :user => @user,
+          :password => @password
+        )
+        response = yield(rest)
+        write_output(" => #{response.code}\n#{response.body}")
       end
     end
   end
